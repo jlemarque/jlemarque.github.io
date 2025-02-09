@@ -238,33 +238,33 @@
 			});
 		}
 
-		// Images parallax
-		var width = $(window).width();
-		if (width > 1023) {
-			let imageParallax = document.querySelector(".img-container");
-			if (imageParallax) {
-				gsap.utils.toArray('.img-container').forEach(container => {
-					const img = container.querySelector('img');
-
-					const t4 = gsap.timeline({
-						scrollTrigger: {
-							trigger: container,
-							scrub: true,
-							pin: false,
-						}
-					});
-
-					t4.fromTo(img, {
-						yPercent: -60,
-						ease: 'none'
-					}, {
-						yPercent: 60,
-						ease: 'none'
-					});
+		/* ==================================================
+		    Splite Text
+		================================================== */
+		let text_split = document.querySelector(".split-text");
+		if (text_split) {
+			const animEls = document.querySelectorAll('.split-text');
+			animEls.forEach(el => {
+				var splitEl = new SplitText(el, {
+					type: "lines, words",
+					linesClass: "line"
 				});
-			}
-		}
+				var splitTl = gsap.timeline({
+					duration: 0,
+					ease: 'power4',
+					scrollTrigger: {
+						trigger: el,
+						start: 'top 90%'
+					}
+				});
 
+				splitTl.from(splitEl.words, {
+					yPercent: "100",
+					stagger: 0.008,
+				});
+
+			});
+		}
 
 		/* ==================================================
 		    Contact Form Validations
@@ -321,9 +321,7 @@
 
 
 
-	/* ==================================================
-		Preloader Js
-	================================================== */
+	// Preloader Js
 	const svg = document.getElementById("preloaderSvg");
 	const svgText = document.querySelector(
 		".hero-section .intro_text svg text"
